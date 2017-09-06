@@ -1,0 +1,26 @@
+COMMON: &common
+  CSRF_ENABLED: True
+  SECRET_KEY: insecure
+
+DEVELOPMENT: &development
+  <<: *common
+  DEBUG: True
+  CSRF_SESSION_KEY: 'secret'
+  SECRET_KEY: 'secret'
+  # Define the database
+  SQLALCHEMY_DATABASE_URI: 'sqlite:///:memory:'
+  SQLALCHEMY_TRACK_MODIFICATIONS: True
+  DATABASE_CONNECT_OPTIONS: {}
+  # Application threads. A common general assumption is
+  # using 2 per available processor cores - to handle
+  # incoming requests using one and performing background
+  # operations using the other.
+  THREADS_PER_PAGE: 2
+
+STAGING: &staging
+  <<: *common
+  SECRET_KEY: sortasecure
+
+PRODUCTION: &production
+  <<: *common
+  SECRET_KEY: shouldbereallysecureatsomepoint
